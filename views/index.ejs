@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= titulo %></title>
+  <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>EventHub</h1>
+    <h2>Login</h2>
+    <form action="/login" method="POST">
+      <div class="input-group">
+        <input type="email" name="email" placeholder="Email" required>
+        <span class="clear-btn">✖</span>
+      </div>
+      <div class="input-group">
+        <input type="password" name="senha" placeholder="Senha" required>
+        <span class="clear-btn">✖</span>
+      </div>
+      <p><a href="/cadastro">Clique aqui para se cadastrar.</a></p>
+      <div class="button-container">
+        <button type="submit" class="login-btn">Login</button>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
