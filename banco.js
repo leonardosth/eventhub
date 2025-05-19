@@ -36,6 +36,60 @@ async function buscarUsuario(usuario) {
     : {};
 }
 
+async function buscarAdmin(admin) {
+  const conexao = await conectarBD();
+  const sql = "select * from admin where admemail=? and admsenha=?;";
+  const [admEcontrado] = await conexao.query(sql, [admin.email, admin.senha]);
+  return admEcontrado && admEcontrado.length > 0 ? admEcontrado[0] : {};
+}
+
+async function buscarEventos() {
+  const conexao = await conectarBD();
+  const sql = "select * from eventos";
+  const [eventosEncontrados] = await conexao.query(sql);
+  return eventosEncontrados;
+}
+
+async function cadastrarEvento(evento) {
+  const conexao = await conectarBD();
+  const sql =
+    "insert into eventos (nomeevento, descevento, dataevento, imgevento, tipoevento) values (?, ?, ?, ?, ?);";
+  await conexao.query(sql, [
+    evento.nomeevento,
+    evento.descevento,
+    evento.dataevento,
+    evento.imgevento,
+    evento.tipoevento,
+  ]);
+}
+
+async function atualizarEvento(evento) {
+  const conexao = await conectarBD();
+  const sql =
+    "update eventos set nomeevento = ?, descevento = ?, dataevento = ?, imgevento = ?, tipoevento = ? where codevento = ?";
+  await conexao.query(sql, [
+    evento.nomeevento,
+    evento.descevento,
+    evento.dataevento,
+    evento.imgevento,
+    evento.tipoevento,
+    evento.codevento,
+  ]);
+}
+
+async function apagarEvento(codevento) {
+  const conexao = await conectarBD();
+  const sql = "delete from eventos where codevento = ?";
+  await conexao.query(sql, [codevento]);
+}
+
 conectarBD();
 
-module.exports = { buscarUsuario };
+module.exports = {
+  buscarUsuario,
+  buscarAdmin,
+  buscarEventos,
+  cadastrarEvento,
+  atualizarEvento,
+  apagarEvento,
+};

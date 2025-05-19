@@ -18,8 +18,7 @@ router.get("/", function (req, res, next) {
 });
 
 /* GET browse */
-router.get("/browse", function (req, res, next) {
-  verificarLogin(res);
+router.get("/browse", verificarLogin, function (req, res, next) {
   res.render("browse", { titulo: "EventHub - Navegação" });
 });
 
@@ -48,8 +47,11 @@ router.post("/login", async function (req, res, next) {
  *
  */
 
-function verificarLogin(res) {
-  if (!global.usuarioEmail || global.usuarioEmail == "") res.redirect("/");
+function verificarLogin(req, res, next) {
+  if (!global.usuarioEmail || global.usuarioEmail == "") {
+    return res.redirect("/");
+  }
+  next();
 }
 
 module.exports = router;
