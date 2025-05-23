@@ -1,13 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= titulo %></title>
+    <title>Eventos - EventHub</title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
 </head>
 <body>
-    <h1>EventHub - Navegação</h1>
-    <p>à definir</p>
+
+    <!-- Barra Lateral -->
+    <nav class="sidebar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Eventos</a></li>
+            <li><a href="#">Ingressos</a></li>
+            <li><a href="#">Configurações</a></li>
+        </ul>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="content">
+        <h1>Eventos</h1>
+
+        <!-- Categorias -->
+        <section class="categorias">
+            <button class="categoria-btn">🎤 Festas e Shows</button>
+            <button class="categoria-btn">🎭 Teatro</button>
+            <button class="categoria-btn">🎙️ Stand Up</button>
+            <button class="categoria-btn">🚶 Passeios</button>
+            <button class="categoria-btn">⚽ Esportes</button>
+            <button class="categoria-btn">🎓 Congressos</button>
+        </section>
+
+        <!-- Eventos em Destaque -->
+        <section class="eventos-destaque">
+            <div class="card evento-1">🏆 Evento A</div>
+            <div class="card evento-2">🥈 Evento B</div>
+            <div class="card evento-3">🥉 Evento C</div>
+        </section>
+    </main>
 
 </body>
 </html>
