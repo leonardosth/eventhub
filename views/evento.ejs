@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos - EventHub</title>
+    <title>Evento</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../stylesheets/style.css">
@@ -57,16 +57,9 @@
         <!-- Topo da página -->
         <header class="d-flex justify-content-between align-items-center p-3 bg-light">
             <button type="button" class="btn">
-                    <i class="bi bi-person-circle"></i>
+                <i class="bi bi-person-circle"></i>
             </button>
             <div>
-                <button type="button" class="notification btn position-relative">
-                    <i class="bi bi-bell"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        9+
-                        <span class="visually-hidden">unread messages</span>
-                    </span>
-                </button>
                 <button type="button" class="btn">
                     <i class="bi bi-gear"></i>
                 </button>
@@ -74,41 +67,34 @@
         </header>
         <!-- Conteúdo Principal -->
         <main class="content">
-            <div class="TitleEventos d-flex justify-content-start">
-                <h1>Eventos</h1>
+            <div class="d-flex justify-content-between">
+                <h3>Dados do Evento</h3>
+                <button type="button" class="btn BTN">
+                    Editar
+                    <i class="bi bi-calendar"></i>
+                </button>
             </div>
-            <!-- Categorias -->
-             <div class="TitleCategories d-flex justify-content-start mt-5">
-                <h2>Categorias</h2>
-                <i class="bi bi-arrow-right fs-2 ms-4"></i>
-             </div>
-            <div class="d-flex gap-3 justify-content-start my-4">
-                <% categorias.forEach(categoria => { %>
-                    <button class="btn btn-secondary rounded-circle p-3"><%=categoria.nomecategoria%></button>
-                <% }) %>
-            </div>
-
-            <!-- Eventos em Destaque -->
-            <div class="TitleEventosEmDestaque d-flex justify-content-start mt-5">
-                <h2>Eventos em Destaque</h2>
-                <i class="bi bi-arrow-right fs-2 ms-4"></i>
-            </div>
-            <div class="containerBrowse d-flex justify-content-around p-3">
-                <div class="row">
-                    <% eventos.forEach(evento => { %>
-                        <div class="card p-3 m-1" style="width: 18rem;">
-                        <img src="<%=evento.imgevento%>" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title"><%=evento.nomeevento%></h5>
-                            <p class="card-text"><%=evento.descevento%><p>
-                            <a href="/evento/<%=evento.codevento%>" class="btn">Detalhes</a>
-                        </div>
-                    </div>
-                    <% }) %>
-                </div>
+            <div class="text-start">
+                <ul>
+                    <li>
+                        <i class="bi bi-ticket-perforated fs-1"></i>
+                        <h1><%=evento.nomeevento%></h1>
+                    </li>
+                    <li>
+                        <h3>Local</h3>
+                        <p>Expoville</p>
+                    </li>
+                    <li>
+                        <h3>Data</h3>
+                        <p><%=evento.dataevento%></p>
+                    </li>
+                    <li>
+                        <h3>Descrição</h3>
+                        <p><%=evento.descevento%></p>
+                    </li>
+                </ul>
             </div>
         </main>
-
     </div>
 </body>
 </html>
