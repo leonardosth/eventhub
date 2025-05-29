@@ -18,8 +18,22 @@ router.get("/", function (req, res, next) {
 });
 
 /* GET browse */
-router.get("/browse", verificarLogin, function (req, res, next) {
-  res.render("browse", { titulo: "EventHub - Navegação" });
+router.get("/browse", verificarLogin, async function (req, res, next) {
+  const categorias = await global.banco.buscarCategorias();
+  const eventos = await global.banco.buscarEventos();
+  res.render("browse", {
+    categorias,
+    eventos
+   });
+});
+
+/*GET evento */
+router.get("/evento/:id", verificarLogin, async function(req, res, next){
+  const codevento = req.params.id;
+  const evento = await global.banco.buscarEventoPorCodigo(codevento);
+  res.render("evento", {
+    evento
+  });
 });
 
 /**
