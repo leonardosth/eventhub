@@ -45,9 +45,23 @@ async function buscarAdmin(admin) {
 
 async function buscarEventos() {
   const conexao = await conectarBD();
-  const sql = "select * from eventos";
+  const sql = "select * from eventos;";
   const [eventosEncontrados] = await conexao.query(sql);
   return eventosEncontrados;
+}
+
+async function buscarEventoPorCodigo(codigo){
+  const conexao = await conectarBD();
+  const sql = "select * from eventos where codevento=?;";
+  const [evento] = await conexao.query(sql,[codigo]);
+  return evento[0];
+}
+
+async function buscarCategorias(){
+  const conexao = await conectarBD();
+  const sql = "select nomecategoria from categorias;";
+  const [categoriasEncontradas] = await conexao.query(sql);
+  return categoriasEncontradas;
 }
 
 async function cadastrarEvento(evento) {
@@ -89,6 +103,8 @@ module.exports = {
   buscarUsuario,
   buscarAdmin,
   buscarEventos,
+  buscarEventoPorCodigo,
+  buscarCategorias,
   cadastrarEvento,
   atualizarEvento,
   apagarEvento,
