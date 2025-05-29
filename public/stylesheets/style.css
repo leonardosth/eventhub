@@ -184,6 +184,10 @@ header .bi {
     object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
 }
 
+.image_bilhete {
+  margin-right: 150px;
+}
+
 
 
 
