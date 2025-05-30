@@ -36,6 +36,17 @@ router.get("/evento/:id", verificarLogin, async function(req, res, next){
   });
 });
 
+/*GET categoria_evento */
+router.get("/categoria_evento/:id", verificarLogin, async function(req, res, next){
+  const codcategoria = req.params.id;
+  const categorias = await global.banco.buscarCategorias();
+  const eventos = await global.banco.buscarEventosPorCategoria(codcategoria);
+  res.render("categoria_evento", {
+    categorias,
+    eventos
+  });
+});
+
 /**
  *
  * POSTS

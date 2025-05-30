@@ -45,7 +45,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
+                            <a href="/admin/dashboard" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
                                 <i class="bi bi-star fs-4"></i>
                                 <p>Configs</p>
                             </a>
@@ -60,9 +60,9 @@
                 <i class="bi bi-person-circle"></i>
             </button>
             <div>
-                <button type="button" class="btn">
-                    <i class="bi bi-gear"></i>
-                </button>
+                <a href="/admin/dashboard">
+                    <button type="button" class="btn bi bi-gear"></button>
+                </a>
             </div>
         </header>
         <!-- Conteúdo Principal -->
@@ -93,8 +93,8 @@
                         <p><%=evento.descevento%></p>
                     </li>
                 </ul>
-                <div class="image_bilhete">
-                    <img src="/images/round-icons-LEmj3aBA0Cw-unsplash.png" alt="Imagem de Bilhete">
+                <div>
+                    <img class="image_bilhete" src="<%=evento.imgevento%>" alt="Imagem de Bilhete">
                 </div>
             </div>
         </main>
