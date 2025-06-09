@@ -59,9 +59,16 @@ async function buscarEventoPorCodigo(codigo){
 
 async function buscarCategorias(){
   const conexao = await conectarBD();
-  const sql = "select nomecategoria from categorias;";
+  const sql = "select * from categorias;";
   const [categoriasEncontradas] = await conexao.query(sql);
   return categoriasEncontradas;
+}
+
+async function buscarEventosPorCategoria(codcategoria){
+  const conexao = await conectarBD();
+  const sql = "select * from eventos where categoria = ?;";
+  const [eventos] = await conexao.query(sql,[codcategoria]);
+  return eventos;
 }
 
 async function cadastrarEvento(evento) {
@@ -108,4 +115,5 @@ module.exports = {
   cadastrarEvento,
   atualizarEvento,
   apagarEvento,
+  buscarEventosPorCategoria,
 };
