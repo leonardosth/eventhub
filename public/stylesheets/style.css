@@ -195,6 +195,39 @@ header .bi {
   object-fit: cover;
 }
 
+.input-group{
+  display: flex;
+  align-items: center;
+  width: 300px;
+  height: 50px;
+  background-color: white;
+}
+
+.quadro {
+  width: 300px;
+  border: 2px solid #000;
+  text-align: center;
+  padding: 10px;
+  border-radius: 20px;
+}
+.quadro img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.quadro p {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+
+
+
+
+
+
+
 
 
 
