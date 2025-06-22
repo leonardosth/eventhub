@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos - EventHub</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+<body class="sidebar-expanded">
+    <!-- Barra Lateral -->
+    <div class="container-fluid d-flex">
+        <div class="row">
+            <div id="sidebar" class="col-sm-auto bg-light sticky-top expanded">
+                <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
+                    <ul class="nav nav-pills nav-flush flex-sm-column mb-auto mx-auto text-center">
+                        <li>
+                            <a href="#" class="nav-link py-3 px-2">
+                                <i class="bi bi-list fs-4"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+                                <i class="bi bi-plus fs-4"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                                <i class="bi bi-star fs-4"></i>
+                                <p>Inicio</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/dashboard" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
+                                <i class="bi bi-star fs-4"></i>
+                                <p>Configs</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Topo da página -->
+        <header class="d-flex justify-content-end align-items-center p-3 bg-light">
+            <div>
+                <button type="button" class="notification btn position-relative">
+                    <i class="bi bi-bell"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        9+
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
+                </button>
+                <a href="/admin/dashboard">
+                    <button type="button" class="btn bi bi-gear"></button>
+                </a>
+            </div>
+        </header>
+        <!-- Conteúdo Principal -->
+        <main class="content">
+            <div class="headerButtons d-flex justify-content-around">
+                <button type="button" class="BotaoModulo">Visão Geral</button>
+                <button type="button" class="BotaoModulo">Gerenciamento</button>
+                <button type="button" class="BotaoModulo">Notificações</button>
+            </div>
+            <div class="inputText d-flex justify-content-center align-items-center">
+                <div class="input-group mb-3">
+                    <input type="Text" class="form-control inputMagra" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <button type="button" class="btn">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+                <button type="button" class="botaoInput">
+                    Listar Eventos
+                    <i class="bi bi-list-columns-reverse"></i>
+                </button>
+                <button type="button" class="botaoInput">
+                    Listar Usuarios
+                    <i class="bi bi-list-columns-reverse"></i>
+                </button>
+            </div>
+            <div class="_categorias d-flex justify-content-around">
+                <div class="quadro">
+                    <img src="../stylesheets/images/esportivos.jpg" alt="Esportivos">
+                    <p class="texto-abaixo-quadro">Esportivos</p>
+                </div>
+                
+                <div class="quadro">
+                    <img src="../stylesheets/images/culturais.jpg" alt="Culturais">
+                    <p>Culturais</p>
+                </div>
+                <div class="quadro">
+                    <img src="../stylesheets/images/academicos.jpg" alt="Academicos">
+                    <p>Academicos</p>
+                </div>
+                <div class="quadro">
+                    <img src="../stylesheets/images/sociais.jpg" alt="Sociais">
+                    <p>Sociais</p>
+                </div>
+            </div>
+            <div class="Secoes d-flex justify-content-around">
+                <div class="Secao">
+                    <p>Usuarios</p>
+                    <img src="../stylesheets/images/usuarios.png" alt="Esportivos">
+                    <p>numero</p>
+                </div>
+                <div class="Secao">
+                    <p>Eventos</p>
+                    <img src="../stylesheets/images/eventos.png" alt="Esportivos">
+                    <p>numero</p>
+                </div>
+                <div class="Secao">
+                    <p>Eventos Cancelados</p>
+                    <img src="../stylesheets/images/eventoCancelado.png" alt="Esportivos">
+                    <p>numero</p>
+                </div>
+            </div>
+            <div class="BotoesFooter">
+                <button type="button" class="botaoFoot">
+                    Cadastrar Eventos
+                    <i class="bi bi-calendar-plus fs-4"></i>
+                </button>
+                <button type="button" class="botaoFoot">
+                    Inscrições
+                    <i class="bi bi-pencil-square fs-4"></i>
+                </button>
+            </div>
+        </main>
+
+    </div>
+</body>
+</html>

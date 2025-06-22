@@ -20,6 +20,16 @@ router.get("/dashboard", verificarLoginAdmin, async function (req, res, next) {
   });
 });
 
+/*Get gerenciamento */
+router.get("/gerenciamento", verificarLoginAdmin, async function(req, res, next){
+  res.render("admin/gerenciamento", {});
+});
+
+/* GET Inscrções*/
+router.get("/inscricoes", verificarLoginAdmin, async function(req, res, next){
+  res.render("admin/inscricoes", {});
+});
+
 /* POST deshboard - cadastra eventos */
 router.post("/eventos", verificarLoginAdmin, async function (req, res, next) {
   const evento = {
