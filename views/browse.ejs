@@ -32,7 +32,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/admin/dashboard" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
+                            <a href="/admin/gerenciamento" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
                                 <i class="bi bi-star fs-4"></i>
                                 <p>Configs</p>
                             </a>
@@ -89,11 +89,13 @@
                             <p class="card-text"><%=evento.descevento%><p>
                             <div class="d-flex justify-content-around">
                                 <a href="/evento/<%=evento.codevento%>" class="btn">Detalhes</a>
-                                <a href="#">
-                                    <button type="button" class="heart btn">
-                                        <i class="bi bi-heart"></i>
-                                    </button>
-                                </a>
+                                <form action="/favoritar/<%= evento.codevento %>" method="POST">
+                                
+                                    <% if (favoritosIds.includes(evento.codevento)) { %>
+                                        <button type="submit" class="heart btn"><i class="bi bi-heart-fill"></i></button>
+                                        <% } else { %>
+                                            <button type="submit" class="heart btn"><i class="bi bi-heart"></i></button>
+                                            <% } %>                       </form>
                             </div>
                         </div>
                     </div>

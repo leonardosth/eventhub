@@ -4,7 +4,7 @@ var router = express.Router();
 /* GET login */
 router.get("/", function (req, res, next) {
   if (global.adminEmail && global.adminEmail != "") {
-    res.redirect("/admin/dashboard");
+    res.redirect("/admin/gerenciamento");
   }
 
   res.status(200).render("admin/admin", { titulo: "EventHub Admin - Login" });
@@ -21,12 +21,16 @@ router.get("/dashboard", verificarLoginAdmin, async function (req, res, next) {
 });
 
 /*Get gerenciamento */
-router.get("/gerenciamento", verificarLoginAdmin, async function(req, res, next){
-  res.render("admin/gerenciamento", {});
-});
+router.get(
+  "/gerenciamento",
+  verificarLoginAdmin,
+  async function (req, res, next) {
+    res.render("admin/gerenciamento", {});
+  }
+);
 
 /* GET Inscrções*/
-router.get("/inscricoes", verificarLoginAdmin, async function(req, res, next){
+router.get("/inscricoes", verificarLoginAdmin, async function (req, res, next) {
   res.render("admin/inscricoes", {});
 });
 
@@ -105,7 +109,7 @@ router.post("/login", async function (req, res, next) {
 
   global.adminCodigo = admin.admcodigo;
   global.adminEmail = admin.admemail;
-  res.status(200).redirect("/admin/dashboard");
+  res.status(200).redirect("/admin/gerenciamento");
 });
 
 function verificarLoginAdmin(req, res, next) {

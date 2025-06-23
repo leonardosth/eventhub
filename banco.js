@@ -50,24 +50,24 @@ async function buscarEventos() {
   return eventosEncontrados;
 }
 
-async function buscarEventoPorCodigo(codigo){
+async function buscarEventoPorCodigo(codigo) {
   const conexao = await conectarBD();
   const sql = "select * from eventos where codevento=?;";
-  const [evento] = await conexao.query(sql,[codigo]);
+  const [evento] = await conexao.query(sql, [codigo]);
   return evento[0];
 }
 
-async function buscarCategorias(){
+async function buscarCategorias() {
   const conexao = await conectarBD();
   const sql = "select * from categorias;";
   const [categoriasEncontradas] = await conexao.query(sql);
   return categoriasEncontradas;
 }
 
-async function buscarEventosPorCategoria(codcategoria){
+async function buscarEventosPorCategoria(codcategoria) {
   const conexao = await conectarBD();
   const sql = "select * from eventos where categoria = ?;";
-  const [eventos] = await conexao.query(sql,[codcategoria]);
+  const [eventos] = await conexao.query(sql, [codcategoria]);
   return eventos;
 }
 
@@ -104,6 +104,33 @@ async function apagarEvento(codevento) {
   await conexao.query(sql, [codevento]);
 }
 
+async function buscarFavoritosDoUsuario(codusuario) {
+  const conexao = await conectarBD();
+  const sql = "SELECT codevento FROM favoritos WHERE codusuario = ?";
+  const [eventosFavoritos] = await conexao.query(sql, [codusuario]);
+  return eventosFavoritos;
+}
+
+async function verificarFavorito(codusuario, codevento) {
+  const conexao = await conectarBD();
+  const sql =
+    "SELECT COUNT(*) as count FROM favoritos WHERE codusuario = ? AND codevento = ?";
+  const [ehFavorito] = await conexao.query(sql, [codusuario, codevento]);
+  return ehFavorito;
+}
+
+async function favoritarEvento(codusuario, codevento) {
+  const conexao = await conectarBD();
+  const sql = "INSERT INTO favoritos (codusuario, codevento) VALUES (?, ?)";
+  await conexao.query(sql, [codusuario, codevento]);
+}
+
+async function desfavoritarEvento(codusuario, codevento) {
+  const conexao = await conectarBD();
+  const sql = "DELETE FROM favoritos WHERE codusuario = ? AND codevento = ?";
+  await conexao.query(sql, [codusuario, codevento]);
+}
+
 conectarBD();
 
 module.exports = {
@@ -116,4 +143,8 @@ module.exports = {
   atualizarEvento,
   apagarEvento,
   buscarEventosPorCategoria,
+  buscarFavoritosDoUsuario,
+  verificarFavorito,
+  favoritarEvento,
+  desfavoritarEvento,
 };
