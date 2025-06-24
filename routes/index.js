@@ -14,7 +14,7 @@ router.get("/", function (req, res, next) {
     res.redirect("/browse");
   }
 
-  res.render("index", { titulo: "EventHub - Login" });
+  res.status(200).render("index", { titulo: "EventHub - Login" });
 });
 
 /* GET browse */
@@ -93,8 +93,6 @@ router.post("/favoritar/:id", verificarLogin, async function (req, res, next) {
     codusuario,
     codevento
   );
-
-  console.log(jaEhFavorito[0].count);
 
   if (jaEhFavorito[0].count) {
     // Se já for favorito, desfavorita

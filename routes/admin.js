@@ -6,14 +6,13 @@ router.get("/", function (req, res, next) {
   if (global.adminEmail && global.adminEmail != "") {
     res.redirect("/admin/gerenciamento");
   }
-
-  res.status(200).render("admin/admin", { titulo: "EventHub Admin - Login" });
+  res.render("admin/admin", { titulo: "EventHub Admin - Login" });
 });
 
 /* GET deshboard - busca eventos */
 router.get("/dashboard", verificarLoginAdmin, async function (req, res, next) {
   eventos = await global.banco.buscarEventos();
-  res.status(200).render("admin/dashboard", {
+  res.render("admin/dashboard", {
     event: eventos,
     mensagem: "",
     sucesso: false,
@@ -102,6 +101,7 @@ router.post(
 
 /* POST login */
 router.post("/login", async function (req, res, next) {
+  console.log(req.body);
   const email = req.body.email;
   const senha = req.body.senha;
 
@@ -109,7 +109,7 @@ router.post("/login", async function (req, res, next) {
 
   global.adminCodigo = admin.admcodigo;
   global.adminEmail = admin.admemail;
-  res.status(200).redirect("/admin/gerenciamento");
+  res.redirect("/admin/gerenciamento");
 });
 
 function verificarLoginAdmin(req, res, next) {

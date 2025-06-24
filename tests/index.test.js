@@ -2,6 +2,7 @@
 
 const request = require("supertest");
 const express = require("express");
+const path = require("path");
 const indexRouter = require("../routes/index"); // Ajuste o caminho para o seu arquivo de rotas
 
 // --- Configuração do Ambiente de Teste ---
@@ -9,6 +10,8 @@ const indexRouter = require("../routes/index"); // Ajuste o caminho para o seu a
 // 1. Criamos um app Express "falso" que usa nossas rotas
 const app = express();
 app.use(express.urlencoded({ extended: false })); // Habilita o parsing de formulários (para o login)
+app.set("views", path.join(__dirname, "../views"));
+app.set("view engine", "ejs");
 app.use("/", indexRouter);
 
 // 2. Mock (simulação) do banco de dados. Usamos jest.fn() para criar funções falsas.
