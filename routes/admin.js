@@ -33,6 +33,18 @@ router.get("/inscricoes", verificarLoginAdmin, async function (req, res, next) {
   res.render("admin/inscricoes", {});
 });
 
+/* GET usuarios Pendentes */
+
+router.get("/usuarios_pendentes", verificarLoginAdmin, async function (req, res, next){
+  res.render("admin/usuarios_pendentes")
+});
+
+/* GET lista Usuarios */
+
+router.get("/lista_usuarios", verificarLoginAdmin, async function (req, res, next){
+  res.render("admin/lista_usuarios")
+});
+
 /* POST deshboard - cadastra eventos */
 router.post("/eventos", verificarLoginAdmin, async function (req, res, next) {
   const evento = {
