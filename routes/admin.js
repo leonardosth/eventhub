@@ -11,12 +11,19 @@ router.get("/", function (req, res, next) {
 
 /* GET deshboard - busca eventos */
 router.get("/dashboard", verificarLoginAdmin, async function (req, res, next) {
-  eventos = await global.banco.buscarEventos();
-  res.render("admin/dashboard", {
-    event: eventos,
-    mensagem: "",
-    sucesso: false,
-  });
+  try {
+    const listaDeEventos = await global.banco.buscarEventos();
+
+    // CORREÇÃO: Mude a chave do objeto de 'event' para 'eventos'
+    res.render("admin/dashboard", {
+      eventos: listaDeEventos, // <--- AQUI ESTÁ A MUDANÇA
+      mensagem: "",
+      sucesso: false,
+    });
+  } catch (error) {
+    console.error("Erro ao buscar eventos para o dashboard:", error);
+    next(error);
+  }
 });
 
 /*Get gerenciamento */
@@ -40,17 +47,18 @@ router.post("/eventos", verificarLoginAdmin, async function (req, res, next) {
     descevento: req.body.descevento,
     dataevento: req.body.dataevento,
     imgevento: req.body.imgevento,
-    tipoevento: req.body.tipoevento,
+    categoria: req.body.categoria,
   };
 
   if (
     evento.nomeevento == "" ||
     evento.descevento == "" ||
     evento.dataevento == "" ||
-    evento.tipoevento == ""
+    evento.categoria == ""
   ) {
+    const listaDeEventos = await global.banco.buscarEventos();
     res.render("admin/dashboard", {
-      admNome: global.admNome,
+      eventos: listaDeEventos,
       mensagem:
         "Todos os campos devem ser preenchidos: Nome, Descrição, Data e Tipo.",
       sucesso: false,
@@ -77,7 +85,7 @@ router.post(
       descevento: req.body.descevento,
       dataevento: req.body.dataevento,
       imgevento: req.body.imgevento,
-      tipoevento: req.body.tipoevento,
+      categoria: req.body.categoria,
     };
 
     global.banco.atualizarEvento(evento);

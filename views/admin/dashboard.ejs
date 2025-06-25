@@ -27,7 +27,7 @@
           <input type="text" name="imgevento" class="form-control" placeholder="URL da imagem">
         </div>
         <div class="col">
-          <input type="text" name="tipoevento" class="form-control" placeholder="Tipo (Show, Meetup...)">
+          <input type="text" name="categoria" class="form-control" placeholder="Tipo (Show, Meetup...)">
         </div>
         <div class="col">
           <button class="btn btn-primary" type="submit">Adicionar</button>
@@ -63,7 +63,7 @@
               <td><input name="descevento" value="<%= evento.descevento %>" class="form-control" required></td>
               <td><input type="date" name="dataevento" value="<%= evento.dataevento.toISOString().split('T')[0] %>" class="form-control" required></td>
               <td><input name="imgevento" value="<%= evento.imgevento %>" class="form-control"></td>
-              <td><input name="tipoevento" value="<%= evento.tipoevento %>" class="form-control" required></td>
+              <td><input name="categoria" value="<%= evento.categoria %>" class="form-control" required></td>
               <td>
                 <button class="btn btn-success btn-sm" type="submit">Atualizar</button>
             </form>

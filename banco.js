@@ -74,26 +74,26 @@ async function buscarEventosPorCategoria(codcategoria) {
 async function cadastrarEvento(evento) {
   const conexao = await conectarBD();
   const sql =
-    "insert into eventos (nomeevento, descevento, dataevento, imgevento, tipoevento) values (?, ?, ?, ?, ?);";
+    "insert into eventos (nomeevento, descevento, dataevento, imgevento, categoria) values (?, ?, ?, ?, ?);";
   await conexao.query(sql, [
     evento.nomeevento,
     evento.descevento,
     evento.dataevento,
     evento.imgevento,
-    evento.tipoevento,
+    evento.categoria,
   ]);
 }
 
 async function atualizarEvento(evento) {
   const conexao = await conectarBD();
   const sql =
-    "update eventos set nomeevento = ?, descevento = ?, dataevento = ?, imgevento = ?, tipoevento = ? where codevento = ?";
+    "update eventos set nomeevento = ?, descevento = ?, dataevento = ?, imgevento = ?, categoria = ? where codevento = ?";
   await conexao.query(sql, [
     evento.nomeevento,
     evento.descevento,
     evento.dataevento,
     evento.imgevento,
-    evento.tipoevento,
+    evento.categoria,
     evento.codevento,
   ]);
 }

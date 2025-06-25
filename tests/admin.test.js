@@ -93,11 +93,19 @@ describe("Testes das Rotas do Painel de Administração", () => {
     });
 
     test("GET /admin/dashboard -> Deve buscar e exibir os eventos", async () => {
-      const mockEventos = [{ codevento: 1, nomeevento: "Evento de Teste" }];
+      const mockEventos = [
+        {
+          codevento: 1,
+          nomeevento: "Evento de Teste Completo",
+          descevento: "Descrição do evento de teste.",
+          dataevento: new Date(), // <-- MUITO IMPORTANTE: Precisa ser um objeto Date real.
+          imgevento: "caminho/para/imagem.jpg",
+          tipoevento: 1, // ou qualquer outro valor esperado
+        },
+      ];
       mockDb.buscarEventos.mockResolvedValue(mockEventos); // Prepara resposta do banco
 
       const res = await request(app).get("/admin/dashboard");
-
       expect(res.statusCode).toBe(200);
       expect(mockDb.buscarEventos).toHaveBeenCalledTimes(1);
     });
@@ -108,13 +116,16 @@ describe("Testes das Rotas do Painel de Administração", () => {
         descevento: "Descrição do novo evento",
         dataevento: "2025-12-25",
         imgevento: "img.jpg",
-        tipoevento: "1", // Assumindo que tipoevento é categoria
+        categoria: 1,
       };
       mockDb.cadastrarEvento.mockResolvedValue({}); // Simula que o cadastro funcionou
 
-      const res = await request(app).post("/admin/eventos").send(novoEvento);
+      const res = await request(app)
+        .post("/admin/eventos")
+        .set("Content-Type", "application/x-www-form-urlencoded")
+        .send(novoEvento);
 
-      expect(res.statusCode).toBe(201);
+      expect(res.statusCode).toBe(302);
       expect(res.headers.location).toBe("/admin/dashboard");
       expect(mockDb.cadastrarEvento).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -128,11 +139,12 @@ describe("Testes das Rotas do Painel de Administração", () => {
         nomeevento: "", // Campo obrigatório vazio
         descevento: "Descrição",
         dataevento: "2025-12-25",
-        tipoevento: "1",
+        categoria: 1,
       };
 
       const res = await request(app)
         .post("/admin/eventos")
+        .set("Content-Type", "application/x-www-form-urlencoded")
         .send(eventoInvalido);
 
       expect(res.statusCode).toBe(200); // O código re-renderiza a página com status 200
@@ -145,15 +157,16 @@ describe("Testes das Rotas do Painel de Administração", () => {
         descevento: "Descrição atualizada",
         dataevento: "2026-01-01",
         imgevento: "img2.jpg",
-        tipoevento: "2",
+        categoria: 2,
       };
       mockDb.atualizarEvento.mockResolvedValue({});
 
       const res = await request(app)
-        .post("/admin/eventos/5") // Testando a atualização do evento com id 5
+        .post("/admin/eventos/5")
+        .set("Content-Type", "application/x-www-form-urlencoded")
         .send(eventoAtualizado);
 
-      expect(res.statusCode).toBe(201);
+      expect(res.statusCode).toBe(302);
       expect(res.headers.location).toBe("/admin/dashboard");
       expect(mockDb.atualizarEvento).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -168,7 +181,7 @@ describe("Testes das Rotas do Painel de Administração", () => {
 
       const res = await request(app).post("/admin/eventos/delete/7"); // Testando apagar o evento com id 7
 
-      expect(res.statusCode).toBe(201);
+      expect(res.statusCode).toBe(302);
       expect(res.headers.location).toBe("/admin/dashboard");
       expect(mockDb.apagarEvento).toHaveBeenCalledWith("7"); // Verifica se a função foi chamada com o ID correto
     });

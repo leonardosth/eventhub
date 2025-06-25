@@ -67,6 +67,7 @@ describe("Testes das Rotas de Eventos", () => {
 
       const res = await request(app)
         .post("/login")
+        .set("Content-Type", "application/x-www-form-urlencoded")
         .send({ email: "teste@exemplo.com", senha: "123" }); // Enviando dados do formulário
 
       expect(res.statusCode).toBe(302);
