@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos - EventHub</title>
+    <title>Inscrições</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../stylesheets/style.css">
@@ -68,7 +68,10 @@
             </div>
             <div class="cadastro d-flex justify-content-between">
                 <div class="d-flex justify-content-start flex-sm-column">
-                    <button type="button" class="botaoInscricao"><p>Cadastar Nova Inscrição</p></button>
+                    <button type="button" class="botaoInscricao">
+                        Cadastar Nova Inscrição
+                        <i class="bi bi-plus fs-4"></i>
+                    </button>
                     <h2>Buscar Inscrções</h2>
                     <div class="input-group2 mb-3">
                         <input type="Text" class="form-control inputMagra" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
@@ -81,6 +84,38 @@
                     <img src="../stylesheets/images/buscaUsuarios.png" alt="">
                 </div>
             </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código da Inscrição</th>
+                        <th>Nome</th>
+                        <th>Evento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#">153</a></td>
+                        <td><a href="#">Participante 1</a></td>
+                        <td>
+                            Labirinto Cultural
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">154</a></td>
+                        <td><a href="#">Participante 2</a></td>
+                        <td>
+                            Fusão de Ideias
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">155</a></td>
+                        <td><a href="#">Participante 3</a></td>
+                        <td>
+                            Impacto Infinito
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </main>
     </div>
 </body>

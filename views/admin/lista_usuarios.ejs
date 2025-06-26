@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciamento</title>
+    <title>Lista de Usuarios</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../stylesheets/style.css">
@@ -32,7 +32,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/admin/dashboard" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
+                            <a href="/admin/gerenciamento" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
                                 <i class="bi bi-star fs-4"></i>
                                 <p>Configs</p>
                             </a>
@@ -51,7 +51,7 @@
                         <span class="visually-hidden">unread messages</span>
                     </span>
                 </button>
-                <a href="/admin/gerenciamento">
+                <a href="/admin/dashboard">
                     <button type="button" class="btn bi bi-gear"></button>
                 </a>
             </div>
@@ -63,70 +63,58 @@
                 <button type="button" class="BotaoModulo">Gerenciamento</button>
                 <button type="button" class="BotaoModulo">Notificações</button>
             </div>
-            <div class="inputText d-flex justify-content-center align-items-center">
-                <div class="input-group mb-3">
-                    <input type="Text" class="form-control inputMagra" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                    <button type="button" class="btn">
-                        <i class="bi bi-search"></i>
-                    </button>
+            <div class="cabecalho_input d-flex justify-content-around">
+                <div class="imgIcon2">
+                    <img src="../stylesheets/images/lista_usuarios.png" alt="Icone Usuarios">
                 </div>
-                <button type="button" class="botaoInput">
-                    Listar Eventos
-                    <i class="bi bi-list-columns-reverse"></i>
-                </button>
-                <button type="button" class="botaoInput">
-                    Listar Usuarios
-                    <i class="bi bi-list-columns-reverse"></i>
-                </button>
-            </div>
-            <div class="_categorias d-flex justify-content-around">
-                <div class="quadro">
-                    <img src="../stylesheets/images/esportivos.jpg" alt="Esportivos">
-                    <p class="texto-abaixo-quadro">Esportivos</p>
+                <div class="titulo_input">
+                    <div class="titulo_lista">
+                        <h1>Lista de Usuarios</h1>
+                    </div>
+                    <div class="input-group2 mb-3">
+                        <input type="Text" class="form-control inputMagra" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        <button type="button" class="btn">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
                 </div>
-                
-                <div class="quadro">
-                    <img src="../stylesheets/images/culturais.jpg" alt="Culturais">
-                    <p>Culturais</p>
-                </div>
-                <div class="quadro">
-                    <img src="../stylesheets/images/academicos.jpg" alt="Academicos">
-                    <p>Academicos</p>
-                </div>
-                <div class="quadro">
-                    <img src="../stylesheets/images/sociais.jpg" alt="Sociais">
-                    <p>Sociais</p>
+                <div class="imgIcon2">
+                    <img src="../stylesheets/images/lista_usuarios.png" alt="Icone Usuarios">
                 </div>
             </div>
-            <div class="Secoes d-flex justify-content-around">
-                <div class="Secao">
-                    <p>Usuarios</p>
-                    <img src="../stylesheets/images/usuarios.png" alt="Esportivos">
-                    <p>numero</p>
-                </div>
-                <div class="Secao">
-                    <p>Eventos</p>
-                    <img src="../stylesheets/images/eventos.png" alt="Esportivos">
-                    <p>numero</p>
-                </div>
-                <div class="Secao">
-                    <p>Eventos Cancelados</p>
-                    <img src="../stylesheets/images/eventoCancelado.png" alt="Esportivos">
-                    <p>numero</p>
-                </div>
-            </div>
-            <div class="BotoesFooter">
-                <button type="button" class="botaoFoot">
-                    Cadastrar Eventos
-                    <i class="bi bi-calendar-plus fs-4"></i>
-                </button>
-                <button type="button" class="botaoFoot">
-                    Inscrições
-                    <i class="bi bi-pencil-square fs-4"></i>
-                </button>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código do Usuario</th>
+                        <th>Nome</th>
+                        <th>Data Nascimento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#">153</a></td>
+                        <td><a href="#">Participante 1</a></td>
+                        <td>
+                            Labirinto Cultural
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">154</a></td>
+                        <td><a href="#">Participante 2</a></td>
+                        <td>
+                            Fusão de Ideias
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">155</a></td>
+                        <td><a href="#">Participante 3</a></td>
+                        <td>
+                            Impacto Infinito
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </main>
-
     </div>
 </body>
 </html>
