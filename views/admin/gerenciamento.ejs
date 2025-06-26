@@ -26,7 +26,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                            <a href="/admin/gerenciamento" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
                                 <i class="bi bi-star fs-4"></i>
                                 <p>Inicio</p>
                             </a>
@@ -60,7 +60,9 @@
         <main class="content">
             <div class="headerButtons d-flex justify-content-around">
                 <button type="button" class="BotaoModulo">Visão Geral</button>
-                <button type="button" class="BotaoModulo">Gerenciamento</button>
+                <a href="/admin/dashboard">
+                    <button type="button" class="BotaoModulo">Gerenciamento</button>
+                </a>
                 <button type="button" class="BotaoModulo">Notificações</button>
             </div>
             <div class="inputText d-flex justify-content-center align-items-center">
@@ -74,10 +76,12 @@
                     Listar Eventos
                     <i class="bi bi-list-columns-reverse"></i>
                 </button>
-                <button type="button" class="botaoInput">
-                    Listar Usuarios
-                    <i class="bi bi-list-columns-reverse"></i>
-                </button>
+                <a href="/admin/lista_usuarios">
+                    <button type="button" class="botaoInput">
+                        Listar Usuarios
+                        <i class="bi bi-list-columns-reverse"></i>
+                    </button>
+                </a>
             </div>
             <div class="_categorias d-flex justify-content-around">
                 <div class="quadro">
