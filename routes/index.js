@@ -64,6 +64,12 @@ router.get(
   }
 );
 
+/* GET Favoritos */
+
+router.get("/favoritos", verificarLogin, async function (req, res, next){
+  res.render("favoritos");
+});
+
 /**
  *
  * POSTS
