@@ -5,6 +5,11 @@ body {
   text-align: center;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+}
+
+.body-favoritos {
+  background-color: rgb(35, 44, 100);
 }
 
 a {
@@ -23,6 +28,11 @@ a {
   display: flex;
   flex-direction: column;
   align-items: auto;
+  min-height: 100vh;
+}
+
+#sidebar-favoritos {
+  background-color: rgb(1, 1, 43);
 }
 
 h1 {
@@ -111,6 +121,11 @@ nav {
     font-weight: bold; /* Deixa o texto mais destacado */
 }
 
+#fav {
+  color: white;
+  font-weight: bold;
+}
+
 /* Ajuste na barra superior */
 header {
     position: fixed;
@@ -128,6 +143,13 @@ header {
     margin-left: 50px; /* Para alinhar ao lado da sidebar */
     padding: 20px;
     width: 100%;
+    min-height: 100vh;
+}
+
+.content-favoritos {
+  width: 100%;
+  margin-left: 10px;
+  min-height: 100vh;
 }
 
 .content .BTN {
@@ -182,10 +204,6 @@ header .bi {
     width: 100%;
     height: 150px; /* Ajusta o tamanho da imagem */
     object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
-}
-
-.card-body .heart{
-  background-color: white;
 }
 
 .image_bilhete {
@@ -312,6 +330,17 @@ header .bi {
   margin-bottom: 30px;
 }
 
+.TitleEventosFavoritos {
+  background-color: rgb(138, 43, 226);
+  width: 100%;
+}
+
+.TitleEventosFavoritos h1 {
+  color: white;
+  font-size: 100px;
+}
+
+
 .imgIcon {
   width: 300px;
   height: 300px;
@@ -376,6 +405,13 @@ tbody tr:nth-child(1), tbody tr:nth-child(3) {
 
 .cabecalho_input {
   margin-top: 30px;
+}
+
+.icon_favoritos img {
+  width: 150px;
+  height: 150px;
+  margin-right: 100px;
+  margin-left: 50px;
 }
 
 
