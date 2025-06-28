@@ -1,4 +1,5 @@
 var express = require("express");
+const { listarUsuarios } = require("../banco.js");
 var router = express.Router();
 
 /* GET login */
@@ -42,21 +43,35 @@ router.get("/inscricoes", verificarLoginAdmin, async function (req, res, next) {
 
 /* GET usuarios Pendentes */
 
-router.get("/usuarios_pendentes", verificarLoginAdmin, async function (req, res, next){
-  res.render("admin/usuarios_pendentes");
-});
+router.get(
+  "/usuarios_pendentes",
+  verificarLoginAdmin,
+  async function (req, res, next) {
+    res.render("admin/usuarios_pendentes");
+  }
+);
 
 /* GET lista Usuarios */
 
-router.get("/lista_usuarios", verificarLoginAdmin, async function (req, res, next){
-  res.render("admin/lista_usuarios");
-});
+router.get(
+  "/lista_usuarios",
+  verificarLoginAdmin,
+  async function (req, res, next) {
+    const listaUsuarios = await global.banco.listarUsuarios();
+    console.log(listaUsuarios);
+    res.render("admin/lista_usuarios", { listaUsuarios });
+  }
+);
 
 /* GET lista Eventos */
 
-router.get("/lista_eventos", verificarLoginAdmin, async function(req, res, next){
-  res.render("admin/lista_eventos");
-});
+router.get(
+  "/lista_eventos",
+  verificarLoginAdmin,
+  async function (req, res, next) {
+    res.render("admin/lista_eventos");
+  }
+);
 
 /* POST deshboard - cadastra eventos */
 router.post("/eventos", verificarLoginAdmin, async function (req, res, next) {

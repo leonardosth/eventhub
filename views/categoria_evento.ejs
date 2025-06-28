@@ -13,28 +13,32 @@
     <!-- Barra Lateral -->
     <div class="container-fluid d-flex">
         <div class="row">
-            <div class="col-sm-auto bg-light sticky-top">
+            <div id="sidebar" class="col-sm-auto bg-light sticky-top expanded">
                 <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
                     <ul class="nav nav-pills nav-flush flex-sm-column mb-auto mx-auto text-center">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+                        <li>
+                            <a href="/" class="nav-link py-3 px-2">
                                 <i class="bi bi-list fs-4"></i>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
-                                <i class="bi bi-plus fs-4"></i>
-                            </a>
-                        </li>
                         <li>
-                            <a href="/browse" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
-                                <i class="bi bi-star fs-4"></i>
+                            <a href="/" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip"
+                                data-bs-placement="right" data-bs-original-title="Dashboard">
+                                <i class="bi bi-house fs-4"></i>
                                 <p>Inicio</p>
                             </a>
                         </li>
                         <li>
-                            <a href="/admin/gerenciamento" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
-                                <i class="bi bi-star fs-4"></i>
+                            <a href="/favoritos" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip"
+                                data-bs-placement="right" data-bs-original-title="Dashboard">
+                                <i class="bi bi-heart fs-4"></i>
+                                <p>Favoritos</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/gerenciamento" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip"
+                                data-bs-placement="right" data-bs-original-title="Customers">
+                                <i class="bi bi-gear fs-4"></i>
                                 <p>Configs</p>
                             </a>
                         </li>
@@ -52,9 +56,6 @@
                         <span class="visually-hidden">unread messages</span>
                     </span>
                 </button>
-                <a href="/admin/dashboard">
-                    <button type="button" class="btn bi bi-gear"></button>
-                </a>
             </div>
         </header>
         <!-- Conteúdo Principal -->

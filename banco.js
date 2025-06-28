@@ -36,6 +36,13 @@ async function buscarUsuario(usuario) {
     : {};
 }
 
+async function listarUsuarios() {
+  const conexao = await conectarBD();
+  const sql = "SELECT * FROM usuarios";
+  const [listaUsuarios] = await conexao.query(sql);
+  return listaUsuarios;
+}
+
 async function buscarAdmin(admin) {
   const conexao = await conectarBD();
   const sql = "select * from admin where admemail=? and admsenha=?;";
@@ -111,6 +118,13 @@ async function buscarFavoritosDoUsuario(codusuario) {
   return eventosFavoritos;
 }
 
+async function buscarEventosFavoritados(codusuario) {
+  const conexao = await conectarBD();
+  const sql = "SELECT * FROM lista_favoritos WHERE usuario = ?";
+  const [eventosFavoritados] = await conexao.query(sql, [codusuario]);
+  return eventosFavoritados;
+}
+
 async function verificarFavorito(codusuario, codevento) {
   const conexao = await conectarBD();
   const sql =
@@ -147,4 +161,6 @@ module.exports = {
   verificarFavorito,
   favoritarEvento,
   desfavoritarEvento,
+  buscarEventosFavoritados,
+  listarUsuarios,
 };

@@ -66,8 +66,11 @@ router.get(
 
 /* GET Favoritos */
 
-router.get("/favoritos", verificarLogin, async function (req, res, next){
-  res.render("favoritos");
+router.get("/favoritos", verificarLogin, async function (req, res, next) {
+  const eventos = await global.banco.buscarEventosFavoritados(
+    global.usuarioCodigo
+  );
+  res.render("favoritos", { eventos });
 });
 
 /**
