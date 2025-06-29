@@ -85,37 +85,43 @@
                     <img src="../stylesheets/images/buscaUsuarios.png" alt="">
                 </div>
             </div>
-            <table>
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Código da Inscrição</th>
                         <th>Nome</th>
                         <th>Evento</th>
+                        <th>Data Insc.</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><a href="#">153</a></td>
-                        <td><a href="#">Participante 1</a></td>
-                        <td>
-                            Labirinto Cultural
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">154</a></td>
-                        <td><a href="#">Participante 2</a></td>
-                        <td>
-                            Fusão de Ideias
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">155</a></td>
-                        <td><a href="#">Participante 3</a></td>
-                        <td>
-                            Impacto Infinito
-                        </td>
-                    </tr>
-                </tbody>
+                    <% if (typeof inscricoes !== 'undefined' && inscricoes.length> 0) { %>
+                        <% inscricoes.forEach(inscricao => { %>
+                            <tr>
+                                <td>
+                                    <%= inscricao.codinscricao %>
+                                </td>
+                                <td>
+                                    <%= inscricao.nomeusuario %>
+                                </td>
+                                <td>
+                                    <%= inscricao.nomeevento %>
+                                </td>
+                                <td>
+                                    <%= new Date(inscricao.datainscricao).toLocaleDateString('pt-BR') %>
+                                </td>
+                                <td>
+                                    <%= inscricao.status_inscricao %>
+                                </td>
+                            </tr>
+                            <% }); %>
+                                <% } else { %>
+                                    <tr>
+                                        <td colspan="5">Nenhuma inscrição encontrada.</td>
+                                    </tr>
+                                    <% } %>
+                    </tbody>
             </table>
         </main>
     </div>

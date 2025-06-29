@@ -1,5 +1,4 @@
 var express = require("express");
-const { listarUsuarios } = require("../banco.js");
 var router = express.Router();
 
 /* GET login */
@@ -38,7 +37,8 @@ router.get(
 
 /* GET Inscrções*/
 router.get("/inscricoes", verificarLoginAdmin, async function (req, res, next) {
-  res.render("admin/inscricoes", {});
+  const inscricoes = await global.banco.listarInscricoes();
+  res.render("admin/inscricoes", { inscricoes });
 });
 
 /* GET usuarios Pendentes */
@@ -58,7 +58,6 @@ router.get(
   verificarLoginAdmin,
   async function (req, res, next) {
     const listaUsuarios = await global.banco.listarUsuarios();
-    console.log(listaUsuarios);
     res.render("admin/lista_usuarios", { listaUsuarios });
   }
 );

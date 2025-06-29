@@ -25,6 +25,8 @@ const mockDb = {
   cadastrarEvento: jest.fn(),
   atualizarEvento: jest.fn(),
   apagarEvento: jest.fn(),
+  listarInscricoes: jest.fn(),
+  listarUsuarios: jest.fn(),
 };
 
 // --- Início dos Testes ---
@@ -185,5 +187,109 @@ describe("Testes das Rotas do Painel de Administração", () => {
       expect(res.headers.location).toBe("/admin/dashboard");
       expect(mockDb.apagarEvento).toHaveBeenCalledWith("7"); // Verifica se a função foi chamada com o ID correto
     });
+  });
+
+  describe("Páginas de Visualização de Dados do Admin", () => {
+    // Simula o login do admin antes de cada teste neste grupo
+    beforeEach(() => {
+      global.adminCodigo = 1;
+      global.adminEmail = "admin@logado.com";
+    });
+
+    // Teste para a rota GET /inscricoes
+    describe("GET /admin/inscricoes", () => {
+      test("Deve renderizar a página de inscrições com os dados do banco", async () => {
+        // Arrange: Preparamos a resposta falsa do banco
+        const mockInscricoes = [
+          {
+            nomeusuario: "Ana Silva",
+            nomeevento: "Festival de Verão",
+            data_inscricao: new Date(),
+          },
+          {
+            nomeusuario: "Bruno Costa",
+            nomeevento: "Tech Conference 2025",
+            data_inscricao: new Date(),
+          },
+        ];
+        mockDb.listarInscricoes.mockResolvedValue(mockInscricoes);
+
+        // Act: Fazemos a requisição
+        const res = await request(app).get("/admin/inscricoes");
+
+        // Assert: Verificamos os resultados
+        expect(res.statusCode).toBe(200);
+        expect(mockDb.listarInscricoes).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    // Teste para a rota GET /lista_usuarios
+    describe("GET /admin/lista_usuarios", () => {
+      test("Deve renderizar a página de usuários com os dados do banco", async () => {
+        // Arrange
+        const mockUsuarios = [
+          {
+            usucodigo: 1,
+            nomeusuario: "Leonardo",
+            usuemail: "leonardo@gmail.com",
+          },
+          {
+            usucodigo: 2,
+            nomeusuario: "Ana Silva",
+            usuemail: "ana.silva@example.com",
+          },
+        ];
+        mockDb.listarUsuarios.mockResolvedValue(mockUsuarios);
+
+        // Act
+        const res = await request(app).get("/admin/lista_usuarios");
+
+        // Assert
+        expect(res.statusCode).toBe(200);
+        expect(mockDb.listarUsuarios).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
+
+  describe("Páginas Estáticas do Admin (Protegidas)", () => {
+    // Usamos test.each para testar múltiplas rotas com a mesma lógica, evitando repetição de código.
+    const rotasProtegidas = [
+      "/admin/gerenciamento",
+      "/admin/usuarios_pendentes",
+      "/admin/lista_eventos",
+    ];
+
+    // Teste para acesso não autorizado
+    test.each(rotasProtegidas)(
+      "Deve redirecionar a rota %s para /admin se não estiver logado",
+      async (rota) => {
+        // Arrange: Garantimos que o admin NÃO está logado
+        global.adminCodigo = null;
+        global.adminEmail = null;
+
+        // Act
+        const res = await request(app).get(rota);
+
+        // Assert
+        expect(res.statusCode).toBe(302);
+        expect(res.headers.location).toBe("/admin");
+      }
+    );
+
+    // Teste para acesso autorizado
+    test.each(rotasProtegidas)(
+      "Deve renderizar a rota %s com sucesso se estiver logado",
+      async (rota) => {
+        // Arrange: Simulamos o login
+        global.adminCodigo = 1;
+        global.adminEmail = "admin@logado.com";
+
+        // Act
+        const res = await request(app).get(rota);
+
+        // Assert
+        expect(res.statusCode).toBe(200);
+      }
+    );
   });
 });

@@ -43,10 +43,25 @@ router.get("/browse", verificarLogin, async function (req, res, next) {
 /*GET evento */
 router.get("/evento/:id", verificarLogin, async function (req, res, next) {
   const codevento = req.params.id;
+
   const evento = await global.banco.buscarEventoPorCodigo(codevento);
+  const jaInscrito = await global.banco.verificarInscricao(
+    global.usuarioCodigo,
+    codevento
+  );
   res.render("evento", {
     evento,
+    jaInscrito,
   });
+});
+
+router.post("/inscrever", verificarLogin, async function (req, res) {
+  const codusuario = global.usuarioCodigo;
+  const codevento = req.body.codevento;
+
+  await global.banco.inscreverUsuario(codusuario, codevento);
+
+  res.redirect("/evento/" + codevento);
 });
 
 /*GET categoria_evento */

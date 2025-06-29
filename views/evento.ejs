@@ -85,6 +85,17 @@
                         <h3>Descrição</h3>
                         <p><%=evento.descevento%></p>
                     </li>
+                    <li>
+                        <h3>Inscreva-se</h3>
+                        <% if (jaInscrito) { %>
+                            <p><strong>Você já está inscrito neste evento.</strong></p>
+                        <% } else { %>
+                                <form action="/inscrever" method="POST">
+                                    <input type="hidden" name="codevento" value="<%= evento.codevento %>">
+                                    <button type="submit" class="btn BTN">Inscrever-se</button>
+                                </form>
+                        <% } %>                 
+                    </li>
                 </ul>
                 <div>
                     <img class="image_bilhete" src="<%=evento.imgevento%>" alt="Imagem de Bilhete">

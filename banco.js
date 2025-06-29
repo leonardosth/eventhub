@@ -139,9 +139,36 @@ async function favoritarEvento(codusuario, codevento) {
   await conexao.query(sql, [codusuario, codevento]);
 }
 
+async function listarInscricoes() {
+  const conexao = await conectarBD();
+  const sql =
+    "select i.codinscricao, u.nomeusuario, e.nomeevento, i.datainscricao, i.status_inscricao from inscricoes as i inner join eventos as e on e.codevento = i.codevento inner join usuarios as u on u.usucodigo = i.codusuario;";
+  const [listaInscricoes] = await conexao.query(sql);
+  return listaInscricoes;
+}
+
 async function desfavoritarEvento(codusuario, codevento) {
   const conexao = await conectarBD();
   const sql = "DELETE FROM favoritos WHERE codusuario = ? AND codevento = ?";
+  await conexao.query(sql, [codusuario, codevento]);
+}
+
+async function verificarInscricao(codusuario, codevento) {
+  const conexao = await conectarBD();
+  const sql = `
+    SELECT * FROM inscricoes 
+    WHERE codusuario = ? AND codevento = ?
+  `;
+  const [resultado] = await conexao.query(sql, [codusuario, codevento]);
+  return resultado.length > 0; // retorna true se já estiver inscrito
+}
+
+async function inscreverUsuario(codusuario, codevento) {
+  const conexao = await conectarBD();
+  const sql = `
+    INSERT INTO inscricoes (codusuario, codevento)
+    VALUES (?, ?)
+  `;
   await conexao.query(sql, [codusuario, codevento]);
 }
 
@@ -163,4 +190,7 @@ module.exports = {
   desfavoritarEvento,
   buscarEventosFavoritados,
   listarUsuarios,
+  listarInscricoes,
+  verificarInscricao,
+  inscreverUsuario,
 };

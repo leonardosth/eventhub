@@ -25,6 +25,9 @@ const mockDb = {
   desfavoritarEvento: jest.fn(),
   buscarEventoPorCodigo: jest.fn(),
   buscarEventosPorCategoria: jest.fn(),
+  verificarInscricao: jest.fn(),
+  inscreverUsuario: jest.fn(),
+  buscarEventosFavoritados: jest.fn(),
 };
 
 // --- Início dos Testes ---
@@ -109,6 +112,36 @@ describe("Testes das Rotas de Eventos", () => {
     });
   });
 
+  // Adicione este bloco ao seu index.test.js
+  describe("GET /favoritos", () => {
+    // Simula o login antes de cada teste
+    beforeEach(() => {
+      global.usuarioCodigo = 1;
+      global.usuarioEmail = "teste@logado.com";
+    });
+
+    test("Deve renderizar a página de favoritos com os eventos corretos", async () => {
+      // Arrange: Criamos um mock completo para evitar erros de renderização no EJS
+      const mockEventosFavoritados = [
+        {
+          codevento: 10,
+          nomeevento: "Evento Favoritado 1",
+          descevento: "Descrição.",
+          dataevento: new Date(),
+        },
+      ];
+      mockDb.buscarEventosFavoritados.mockResolvedValue(mockEventosFavoritados);
+
+      // Act
+      const res = await request(app).get("/favoritos");
+
+      // Assert
+      expect(res.statusCode).toBe(200);
+      // Verifica se a função correta do banco foi chamada com o ID do usuário logado
+      expect(mockDb.buscarEventosFavoritados).toHaveBeenCalledWith(1);
+    });
+  });
+
   // --- Testes para a Rota POST /favoritar/:id ---
   describe("POST /favoritar/:id", () => {
     test("Deve redirecionar para / se o usuário não estiver logado", async () => {
@@ -147,6 +180,83 @@ describe("Testes das Rotas de Eventos", () => {
       expect(mockDb.verificarFavorito).toHaveBeenCalledWith(1, "10");
       expect(mockDb.desfavoritarEvento).toHaveBeenCalledTimes(1); // Verifica se a função de desfavoritar foi chamada
       expect(mockDb.favoritarEvento).not.toHaveBeenCalled(); // Garante que a de favoritar NÃO foi chamada
+    });
+  });
+
+  // Adicione este bloco ao seu index.test.js
+  describe("GET /evento/:id", () => {
+    // Simula o login antes de cada teste deste grupo
+    beforeEach(() => {
+      global.usuarioCodigo = 1;
+      global.usuarioEmail = "teste@logado.com";
+    });
+
+    test("Deve renderizar a página do evento e verificar a inscrição", async () => {
+      // Arrange: Preparamos as respostas falsas do banco
+      const mockEvento = {
+        codevento: 5,
+        nomeevento: "Show de Teste",
+        descevento: "Descrição detalhada.",
+        dataevento: new Date(), // Usar new Date() para evitar erros no EJS
+      };
+      const mockInscricaoStatus = [{ count: 0 }]; // Simula que o usuário NÃO está inscrito
+
+      mockDb.buscarEventoPorCodigo.mockResolvedValue(mockEvento);
+      mockDb.verificarInscricao.mockResolvedValue(mockInscricaoStatus);
+
+      // Act: Fazemos a requisição
+      const res = await request(app).get("/evento/5");
+
+      // Assert: Verificamos os resultados
+      expect(res.statusCode).toBe(200);
+      // Verifica se a busca do evento foi chamada com o ID da URL
+      expect(mockDb.buscarEventoPorCodigo).toHaveBeenCalledWith("5");
+      // Verifica se a checagem de inscrição foi feita para o usuário e evento corretos
+      expect(mockDb.verificarInscricao).toHaveBeenCalledWith(1, "5");
+    });
+
+    test("Deve redirecionar para a home se o usuário não estiver logado", async () => {
+      // Arrange: Garantimos que o usuário não está logado
+      global.usuarioCodigo = null;
+      global.usuarioEmail = null;
+
+      // Act
+      const res = await request(app).get("/evento/5");
+
+      // Assert
+      expect(res.statusCode).toBe(302);
+      expect(res.headers.location).toBe("/");
+    });
+  });
+
+  // Adicione este bloco ao seu index.test.js
+  describe("POST /inscrever", () => {
+    // Simula o login antes de cada teste
+    beforeEach(() => {
+      global.usuarioCodigo = 1;
+      global.usuarioEmail = "teste@logado.com";
+    });
+
+    test("Deve inscrever o usuário no evento e redirecionar para a página do evento", async () => {
+      // Arrange: Simulamos que a função de inscrever no banco funciona
+      mockDb.inscreverUsuario.mockResolvedValue({});
+      const eventoIdParaInscrever = 7;
+
+      // Act: Fazemos a requisição POST, enviando o ID do evento no corpo
+      const res = await request(app)
+        .post("/inscrever")
+        .set("Content-Type", "application/x-www-form-urlencoded")
+        .send({ codevento: eventoIdParaInscrever });
+
+      // Assert
+      expect(res.statusCode).toBe(302);
+      // Verifica se redirecionou de volta para a página do evento correto
+      expect(res.headers.location).toBe(`/evento/${eventoIdParaInscrever}`);
+      // Garante que a função do banco foi chamada com os IDs corretos
+      expect(mockDb.inscreverUsuario).toHaveBeenCalledWith(
+        1,
+        String(eventoIdParaInscrever)
+      );
     });
   });
 });
