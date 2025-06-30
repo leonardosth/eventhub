@@ -28,6 +28,8 @@ const mockDb = {
   verificarInscricao: jest.fn(),
   inscreverUsuario: jest.fn(),
   buscarEventosFavoritados: jest.fn(),
+  buscarComentarios: jest.fn(),
+  registrarComentario: jest.fn(),
 };
 
 // --- Início dos Testes ---
@@ -191,28 +193,34 @@ describe("Testes das Rotas de Eventos", () => {
       global.usuarioEmail = "teste@logado.com";
     });
 
-    test("Deve renderizar a página do evento e verificar a inscrição", async () => {
-      // Arrange: Preparamos as respostas falsas do banco
+    test("Deve renderizar a página do evento com todos os dados (evento, inscrição e comentários)", async () => {
+      // Arrange: Preparamos as respostas falsas para todas as chamadas ao banco
+      const eventoId = "5";
       const mockEvento = {
-        codevento: 5,
+        codevento: eventoId,
         nomeevento: "Show de Teste",
-        descevento: "Descrição detalhada.",
-        dataevento: new Date(), // Usar new Date() para evitar erros no EJS
+        dataevento: new Date(),
       };
       const mockInscricaoStatus = [{ count: 0 }]; // Simula que o usuário NÃO está inscrito
+      const mockComentarios = [
+        { comentario: "Comentário de teste!", nomeusuario: "Ana" },
+      ];
 
       mockDb.buscarEventoPorCodigo.mockResolvedValue(mockEvento);
       mockDb.verificarInscricao.mockResolvedValue(mockInscricaoStatus);
+      mockDb.buscarComentarios.mockResolvedValue(mockComentarios); // Mock da busca de comentários
 
       // Act: Fazemos a requisição
-      const res = await request(app).get("/evento/5");
+      const res = await request(app).get(`/evento/${eventoId}`);
 
       // Assert: Verificamos os resultados
       expect(res.statusCode).toBe(200);
-      // Verifica se a busca do evento foi chamada com o ID da URL
-      expect(mockDb.buscarEventoPorCodigo).toHaveBeenCalledWith("5");
-      // Verifica se a checagem de inscrição foi feita para o usuário e evento corretos
-      expect(mockDb.verificarInscricao).toHaveBeenCalledWith(1, "5");
+
+      // Verifica se cada função do banco foi chamada com os parâmetros corretos
+      expect(mockDb.buscarEventoPorCodigo).toHaveBeenCalledWith(eventoId);
+      expect(mockDb.verificarInscricao).toHaveBeenCalledWith(1, eventoId);
+      // VERIFICAÇÃO CHAVE: Garante que buscarComentarios foi chamado com o ID do evento
+      expect(mockDb.buscarComentarios).toHaveBeenCalledWith(eventoId);
     });
 
     test("Deve redirecionar para a home se o usuário não estiver logado", async () => {
@@ -257,6 +265,55 @@ describe("Testes das Rotas de Eventos", () => {
         1,
         String(eventoIdParaInscrever)
       );
+    });
+  });
+
+  // Em index.test.js
+  describe("POST /evento/:id/feedback", () => {
+    beforeEach(() => {
+      global.usuarioCodigo = 1;
+      global.usuarioEmail = "teste@logado.com";
+    });
+
+    test("Deve salvar o comentário e redirecionar de volta para a página do evento", async () => {
+      // Arrange
+      const comentarioEnviado = "Feedback final: muito bom!";
+      const eventoId = "8";
+      mockDb.registrarComentario.mockResolvedValue({}); // Simula sucesso no cadastro
+
+      // Act
+      const res = await request(app)
+        .post(`/evento/${eventoId}/feedback`)
+        .set("Content-Type", "application/x-www-form-urlencoded")
+        .send({ comentario: comentarioEnviado });
+
+      // Assert
+      expect(res.statusCode).toBe(302);
+      expect(res.headers.location).toBe(`/evento/${eventoId}`);
+      // Garante que a função do banco foi chamada com os dados corretos (ID da rota, ID do usuário, comentário do body)
+      expect(mockDb.registrarComentario).toHaveBeenCalledWith(
+        eventoId, // ID do evento da URL
+        1, // ID do usuário logado (global)
+        comentarioEnviado // Comentário do corpo da requisição
+      );
+    });
+
+    test("Deve redirecionar para o login se o usuário não estiver logado", async () => {
+      // Arrange
+      global.usuarioCodigo = null;
+      global.usuarioEmail = null;
+
+      // Act
+      const res = await request(app)
+        .post("/evento/8/feedback")
+        .set("Content-Type", "application/x-www-form-urlencoded")
+        .send({ comentario: "Qualquer comentário" });
+
+      // Assert
+      expect(res.statusCode).toBe(302);
+      expect(res.headers.location).toBe("/");
+      // Garante que o comentário não foi registrado
+      expect(mockDb.registrarComentario).not.toHaveBeenCalled();
     });
   });
 });

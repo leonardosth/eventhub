@@ -49,9 +49,11 @@ router.get("/evento/:id", verificarLogin, async function (req, res, next) {
     global.usuarioCodigo,
     codevento
   );
+  const comentarios = await global.banco.buscarComentarios(codevento);
   res.render("evento", {
     evento,
     jaInscrito,
+    comentarios,
   });
 });
 
@@ -128,6 +130,21 @@ router.post("/favoritar/:id", verificarLogin, async function (req, res, next) {
 
   res.redirect(req.get("referer") || "/browse");
 });
+
+//feedback
+router.post(
+  "/evento/:id/feedback",
+  verificarLogin,
+  async function (req, res, next) {
+    const { comentario } = req.body;
+    const codevento = req.params.id;
+    const codusuario = global.usuarioCodigo;
+
+    await global.banco.registrarComentario(codevento, codusuario, comentario);
+
+    res.redirect("/evento/" + codevento);
+  }
+);
 
 /**
  *

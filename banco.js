@@ -172,6 +172,20 @@ async function inscreverUsuario(codusuario, codevento) {
   await conexao.query(sql, [codusuario, codevento]);
 }
 
+async function registrarComentario(codevento, codusuario, comentario) {
+  const conexao = await conectarBD();
+  const sql =
+    "insert into comentarios (codevento, codusuario, comentario) values (?,?,?)";
+  await conexao.query(sql, [codevento, codusuario, comentario]);
+}
+
+async function buscarComentarios(codevento) {
+  const conexao = await conectarBD();
+  const sql = "select * from comentarios where codevento = ?";
+  const [comentarios] = await conexao.query(sql, [codevento]);
+  return comentarios;
+}
+
 conectarBD();
 
 module.exports = {
@@ -193,4 +207,6 @@ module.exports = {
   listarInscricoes,
   verificarInscricao,
   inscreverUsuario,
+  registrarComentario,
+  buscarComentarios,
 };

@@ -96,10 +96,39 @@
                                 </form>
                         <% } %>                 
                     </li>
+                    <li>
+                        <!--Feedback-->
+                        <h3>Deixe seu feedback</h3>
+                        <form class="text-start d-flex" action="/evento/<%= evento.codevento %>/feedback" method="POST">
+                        
+                            <label>Comentário:</label>
+                            <textarea name="comentario" required></textarea>
+                        
+                            <button type="submit">Enviar</button>
+                        </form>
+                    </li>
+                    <li>
+                        
+                        <h3>Comentários anteriores:</h3>
+                        <% if (comentarios && comentarios.length> 0) { %>
+                            <ul>
+                                <% comentarios.forEach(fb=> { %>
+                                    <li><strong>Comentário:</strong>
+                                        <%= fb.comentario %>
+                                    </li>
+                                    <% }) %>
+                            </ul>
+                            <% } else { %>
+                                <p>Nenhum comentário ainda.</p>
+                                <% } %>
+                                    
+                    </li>
                 </ul>
+
                 <div>
                     <img class="image_bilhete" src="<%=evento.imgevento%>" alt="Imagem de Bilhete">
                 </div>
+                
             </div>
         </main>
     </div>
