@@ -146,6 +146,49 @@ router.post(
   }
 );
 
+// GET para exibir a página de cadastro
+router.get("/cadastro", function (req, res, next) {
+  // O 'error: null' garante que a variável exista no template na primeira carga
+  res.render("cadastro", { titulo: "EventHub - Cadastro", error: null });
+});
+
+// POST para processar o formulário de cadastro
+router.post("/cadastro", async function (req, res, next) {
+  // 1. Pega os dados do corpo da requisição
+  const { nomeusuario, email, senha, confirmar_senha } = req.body;
+
+  // 2. Validação simples: as senhas conferem?
+  if (senha !== confirmar_senha) {
+    // Se não conferem, renderiza a página de novo com uma mensagem de erro
+    return res.render("cadastro", {
+      titulo: "EventHub - Cadastro",
+      error: "As senhas não conferem. Tente novamente.",
+    });
+  }
+
+  try {
+    // 3. Tenta cadastrar o usuário no banco
+    await global.banco.cadastrarUsuario({ nomeusuario, email, senha });
+
+    // 4. Se o cadastro for bem-sucedido, redireciona para a página de login
+    res.redirect("/");
+  } catch (error) {
+    // 5. Se der erro (provavelmente e-mail duplicado), trata o erro
+    console.error("Erro ao cadastrar usuário:", error);
+
+    // Verifica se o erro é de entrada duplicada (padrão do MySQL/MariaDB)
+    if (error.code === "ER_DUP_ENTRY") {
+      return res.render("cadastro", {
+        titulo: "EventHub - Cadastro",
+        error: "Este e-mail já está em uso. Por favor, tente outro.",
+      });
+    }
+
+    // Para outros erros, envia para o handler de erro do Express
+    next(error);
+  }
+});
+
 /**
  *
  * Funções diversas

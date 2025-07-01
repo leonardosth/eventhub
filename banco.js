@@ -31,9 +31,19 @@ async function buscarUsuario(usuario) {
     usuario.email,
     usuario.senha,
   ]);
+  console.log(usuarioEcontrado);
   return usuarioEcontrado && usuarioEcontrado.length > 0
     ? usuarioEcontrado[0]
     : {};
+}
+
+async function cadastrarUsuario(usuario) {
+  const conexao = await conectarBD();
+  const sql =
+    "INSERT INTO usuarios (nomeusuario, usuemail, ususenha) VALUES (?,?,?)";
+
+  // Insere os dados diretamente, incluindo a senha em texto puro
+  await conexao.query(sql, [usuario.nomeusuario, usuario.email, usuario.senha]);
 }
 
 async function listarUsuarios() {
@@ -209,4 +219,5 @@ module.exports = {
   inscreverUsuario,
   registrarComentario,
   buscarComentarios,
+  cadastrarUsuario,
 };

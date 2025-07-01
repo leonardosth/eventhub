@@ -30,6 +30,7 @@ const mockDb = {
   buscarEventosFavoritados: jest.fn(),
   buscarComentarios: jest.fn(),
   registrarComentario: jest.fn(),
+  cadastrarUsuario: jest.fn(),
 };
 
 // --- Início dos Testes ---
@@ -314,6 +315,100 @@ describe("Testes das Rotas de Eventos", () => {
       expect(res.headers.location).toBe("/");
       // Garante que o comentário não foi registrado
       expect(mockDb.registrarComentario).not.toHaveBeenCalled();
+    });
+  });
+
+  // Em index.test.js
+  describe("GET /cadastro", () => {
+    test("Deve renderizar a página de cadastro com sucesso", async () => {
+      // Act: Fazemos a requisição para a página
+      const res = await request(app).get("/cadastro");
+
+      // Assert: Verificamos se a página foi retornada com status 200
+      expect(res.statusCode).toBe(200);
+      // Podemos também verificar se o título está correto (opcional)
+      expect(res.text).toContain("Cadastro de Usuário");
+    });
+  });
+
+  // Em index.test.js
+  describe("POST /cadastro", () => {
+    // Limpa os mocks antes de cada teste para garantir isolamento
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test("Deve criar um novo usuário e redirecionar para a home em caso de sucesso", async () => {
+      // Arrange: Preparamos os dados do novo usuário e simulamos sucesso no banco
+      const novoUsuario = {
+        nomeusuario: "Usuário Teste",
+        email: "teste@exemplo.com",
+        senha: "123",
+        confirmar_senha: "123",
+      };
+      mockDb.cadastrarUsuario.mockResolvedValue(); // Simula que a inserção no banco deu certo
+
+      // Act: Enviamos os dados para a rota de cadastro
+      const res = await request(app)
+        .post("/cadastro")
+        .set("Content-Type", "application/x-www-form-urlencoded")
+        .send(novoUsuario);
+
+      // Assert: Verificamos o resultado
+      expect(res.statusCode).toBe(302); // Esperamos um redirecionamento
+      expect(res.headers.location).toBe("/"); // Para a página de login (home)
+      expect(mockDb.cadastrarUsuario).toHaveBeenCalledTimes(1); // O banco foi chamado uma vez
+      // Verifica se a função do banco foi chamada com os dados corretos (sem a confirmação de senha)
+      expect(mockDb.cadastrarUsuario).toHaveBeenCalledWith({
+        nomeusuario: novoUsuario.nomeusuario,
+        email: novoUsuario.email,
+        senha: novoUsuario.senha,
+      });
+    });
+
+    test("Deve mostrar uma mensagem de erro se as senhas não conferirem", async () => {
+      // Arrange: Preparamos dados onde as senhas são diferentes
+      const dadosInvalidos = {
+        nomeusuario: "Usuário Teste",
+        email: "teste@exemplo.com",
+        senha: "123",
+        confirmar_senha: "456", // Senha diferente
+      };
+
+      // Act
+      const res = await request(app)
+        .post("/cadastro")
+        .set("Content-Type", "application/x-www-form-urlencoded")
+        .send(dadosInvalidos);
+
+      // Assert
+      expect(res.statusCode).toBe(200); // Esperamos que a página seja renderizada novamente
+      expect(res.text).toContain("As senhas não conferem"); // Verifica se a mensagem de erro está na página
+      expect(mockDb.cadastrarUsuario).not.toHaveBeenCalled(); // Garante que o banco NÃO foi chamado
+    });
+
+    test("Deve mostrar uma mensagem de erro se o e-mail já estiver em uso", async () => {
+      // Arrange: Preparamos dados válidos, mas simulamos um erro de e-mail duplicado vindo do banco
+      const novoUsuario = {
+        nomeusuario: "Usuário Teste",
+        email: "email.repetido@exemplo.com",
+        senha: "123",
+        confirmar_senha: "123",
+      };
+      // mockRejectedValue simula uma falha (uma Promise rejeitada) na chamada do banco
+      // O objeto de erro imita o erro que o MariaDB/MySQL retorna para entradas duplicadas
+      mockDb.cadastrarUsuario.mockRejectedValue({ code: "ER_DUP_ENTRY" });
+
+      // Act
+      const res = await request(app)
+        .post("/cadastro")
+        .set("Content-Type", "application/x-www-form-urlencoded")
+        .send(novoUsuario);
+
+      // Assert
+      expect(res.statusCode).toBe(200); // A página deve ser renderizada novamente
+      expect(res.text).toContain("Este e-mail já está em uso"); // Verifica a mensagem de erro específica
+      expect(mockDb.cadastrarUsuario).toHaveBeenCalledTimes(1); // O banco foi chamado, mas falhou
     });
   });
 });

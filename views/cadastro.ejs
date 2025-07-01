@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= titulo %>
+    </title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>EventHub</h1>
+        <h2>Cadastro de Usuário</h2>
+
+        <% if (typeof error !=='undefined' && error) { %>
+            <p class="error-message">
+                <%= error %>
+            </p>
+            <% } %>
+
+                <form action="/cadastro" method="POST">
+                    <div class="input-group">
+                        <input type="text" name="nomeusuario" placeholder="Nome Completo" required>
+                        <span class="clear-btn">✖</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" name="email" placeholder="Email" required>
+                        <span class="clear-btn">✖</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" name="senha" placeholder="Senha" required>
+                        <span class="clear-btn">✖</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" name="confirmar_senha" placeholder="Confirme sua Senha" required>
+                        <span class="clear-btn">✖</span>
+                    </div>
+
+                    <p>Já tem uma conta? <a href="/">Faça o login aqui.</a></p>
+
+                    <div class="button-container">
+                        <button type="submit" class="login-btn">Cadastrar</button>
+                    </div>
+                </form>
+    </div>
+</body>
+
+</html>

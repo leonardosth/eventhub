@@ -141,7 +141,6 @@ router.post(
 
 /* POST login */
 router.post("/login", async function (req, res, next) {
-  console.log(req.body);
   const email = req.body.email;
   const senha = req.body.senha;
 
