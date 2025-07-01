@@ -65,6 +65,36 @@ INSERT INTO `categorias` VALUES (1,'Festas'),(2,'Teatro'),(3,'Standup'),(4,'pass
 UNLOCK TABLES;
 
 --
+-- Table structure for table `comentarios`
+--
+
+DROP TABLE IF EXISTS `comentarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comentarios` (
+  `codcomentario` int(11) NOT NULL AUTO_INCREMENT,
+  `codevento` int(11) DEFAULT NULL,
+  `codusuario` int(11) DEFAULT NULL,
+  `comentario` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`codcomentario`),
+  KEY `codevento` (`codevento`),
+  KEY `codusuario` (`codusuario`),
+  CONSTRAINT `comentarios_ibfk_1` FOREIGN KEY (`codevento`) REFERENCES `eventos` (`codevento`),
+  CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`codusuario`) REFERENCES `usuarios` (`usucodigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comentarios`
+--
+
+LOCK TABLES `comentarios` WRITE;
+/*!40000 ALTER TABLE `comentarios` DISABLE KEYS */;
+INSERT INTO `comentarios` VALUES (1,1,1,'teste'),(2,1,1,'teste2');
+/*!40000 ALTER TABLE `comentarios` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `eventos`
 --
 
@@ -90,7 +120,7 @@ CREATE TABLE `eventos` (
 
 LOCK TABLES `eventos` WRITE;
 /*!40000 ALTER TABLE `eventos` DISABLE KEYS */;
-INSERT INTO `eventos` VALUES (1,'System of a Down','Turnê sul-americana SOAD em curituba','2025-05-24','https://drive.google.com/uc?id=14KNkRDaO2eB7EDILthK1w8IhjD-w73TS',4),(2,'Startup weekend','Encontro de empresas de tecnlogia','2025-05-31','https://tinyurl.com/yx36zpf4',1),(3,'Comic Con Experience','Comic Con Experience SP','2025-06-28','https://tinyurl.com/297p5brn',1),(11,'Codecon - Tecnologia','Convenção de programação e desenvolvimento de software','2025-05-31','https://media.licdn.com/dms/image/v2/C4D0BAQEl8cfA_Gq7RQ/company-logo_200_200/company-logo_200_200/0',1),(12,'Festival de Ver?o','O maior festival de m?sica da esta??o com artistas nacionais e internacionais.','2025-07-15','/img/festival_verao.jpg',13),(13,'Maratona de Joinville','Corra pelas ruas da cidade na 10? edi??o da maratona anual.','2025-08-22','/img/maratona_jlle.jpg',2),(14,'Tech Conference 2025','Palestras sobre o futuro da intelig?ncia artificial e desenvolvimento de software.','2025-09-05','/img/tech_conf.jpg',3),(15,'Sabores da Serra','Festival gastron?mico com comidas t?picas da serra catarinense.','2025-07-20','/img/sabores_serra.jpg',4),(16,'Exposi??o Arte Moderna','Obras de artistas contempor?neos em exibi??o no museu da cidade.','2025-10-01','/img/arte_moderna.jpg',5),(17,'Startup Summit','Encontro de empreendedores e investidores para alavancar novos neg?cios.','2025-11-10','/img/startup_summit.jpg',6),(18,'Noite de Stand-Up','Os melhores comediantes do sul do pa?s em uma noite de muitas risadas.','2025-08-01','/img/standup.jpg',7),(19,'Pe?a \"O Auto da Compadecida\"','A cl?ssica pe?a de Ariano Suassuna em cartaz no teatro municipal.','2025-09-18','/img/auto_compadecida.jpg',8),(20,'Mostra de Cinema Franc?s','Exibi??o dos filmes mais aclamados do cinema franc?s recente.','2025-07-25','/img/cinema_frances.jpg',9),(21,'Workshop de Fotografia','Aprenda t?cnicas de fotografia com o renomado fot?grafo Carlos azevedo.','2025-08-12','/img/workshop_foto.jpg',10),(22,'Palestra sobre Finan?as','Como organizar suas finan?as pessoais e come?ar a investir.','2025-11-20','/img/palestra_financas.jpg',11),(23,'Feira de Livros','Grande feira com descontos incr?veis em livros de diversas editoras.','2025-08-30','/img/feira_livros.jpg',12),(24,'Show Ac?stico de Ana Vilela','Uma noite especial com os maiores sucessos da cantora.','2025-10-10','/img/show_anavilela.jpg',14),(25,'Confer?ncia de Marketing Digital','As ?ltimas tend?ncias e estrat?gias para o marketing online.','2025-10-25','/img/conf_mkt.jpg',15),(26,'Lan?amento do Livro \"A Ilha\"','Sess?o de aut?grafos com o autor do novo best-seller de fic??o.','2025-09-15','/img/lancamento_livro.jpg',16),(27,'Encontro de Colecionadores','Encontro para troca e venda de itens colecion?veis como selos e moedas.','2025-07-18','/img/encontro_colecionadores.jpg',17),(28,'Campeonato de Skate','Competi??o de skate com as categorias amador e profissional.','2025-09-07','/img/camp_skate.jpg',18),(29,'Exposi??o de Carros Antigos','Uma viagem no tempo com os carros que marcaram ?poca.','2025-11-02','/img/carros_antigos.jpg',19),(30,'Curso de Culin?ria Italiana','Aprenda a fazer massas frescas e molhos tradicionais.','2025-08-08','/img/curso_italiano.jpg',20),(31,'Oktoberfest Joinville','A tradicional festa alem? com muita m?sica, dan?a e chopp.','2025-10-17','/img/oktoberfest.jpg',13);
+INSERT INTO `eventos` VALUES (1,'System of a Down','Turnê sul-americana SOAD em curituba','2025-05-24','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',4),(2,'Startup weekend','Encontro de empresas de tecnlogia','2025-05-31','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',1),(3,'Comic Con Experience','Comic Con Experience SP','2025-06-28','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',1),(11,'Codecon - Tecnologia','Convenção de programação e desenvolvimento de software','2025-05-31','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',1),(12,'Festival de Ver?o','O maior festival de m?sica da esta??o com artistas nacionais e internacionais.','2025-07-15','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',13),(13,'Maratona de Joinville','Corra pelas ruas da cidade na 10? edi??o da maratona anual.','2025-08-22','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',2),(14,'Tech Conference 2025','Palestras sobre o futuro da intelig?ncia artificial e desenvolvimento de software.','2025-09-05','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',3),(15,'Sabores da Serra','Festival gastron?mico com comidas t?picas da serra catarinense.','2025-07-20','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',4),(16,'Exposi??o Arte Moderna','Obras de artistas contempor?neos em exibi??o no museu da cidade.','2025-10-01','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',5),(17,'Startup Summit','Encontro de empreendedores e investidores para alavancar novos neg?cios.','2025-11-10','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',6),(18,'Noite de Stand-Up','Os melhores comediantes do sul do pa?s em uma noite de muitas risadas.','2025-08-01','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',7),(19,'Pe?a \"O Auto da Compadecida\"','A cl?ssica pe?a de Ariano Suassuna em cartaz no teatro municipal.','2025-09-18','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',8),(20,'Mostra de Cinema Franc?s','Exibi??o dos filmes mais aclamados do cinema franc?s recente.','2025-07-25','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',9),(21,'Workshop de Fotografia','Aprenda t?cnicas de fotografia com o renomado fot?grafo Carlos azevedo.','2025-08-12','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',10),(22,'Palestra sobre Finan?as','Como organizar suas finan?as pessoais e come?ar a investir.','2025-11-20','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',11),(23,'Feira de Livros','Grande feira com descontos incr?veis em livros de diversas editoras.','2025-08-30','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',12),(24,'Show Ac?stico de Ana Vilela','Uma noite especial com os maiores sucessos da cantora.','2025-10-10','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',14),(25,'Confer?ncia de Marketing Digital','As ?ltimas tend?ncias e estrat?gias para o marketing online.','2025-10-25','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',15),(26,'Lan?amento do Livro \"A Ilha\"','Sess?o de aut?grafos com o autor do novo best-seller de fic??o.','2025-09-15','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',16),(27,'Encontro de Colecionadores','Encontro para troca e venda de itens colecion?veis como selos e moedas.','2025-07-18','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',17),(28,'Campeonato de Skate','Competi??o de skate com as categorias amador e profissional.','2025-09-07','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',18),(29,'Exposi??o de Carros Antigos','Uma viagem no tempo com os carros que marcaram ?poca.','2025-11-02','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',19),(30,'Curso de Culin?ria Italiana','Aprenda a fazer massas frescas e molhos tradicionais.','2025-08-08','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',20),(31,'Oktoberfest Joinville','A tradicional festa alem? com muita m?sica, dan?a e chopp.','2025-10-17','https://lets.events/blog/wp-content/uploads/2022/01/publico-evento.jpg',13);
 /*!40000 ALTER TABLE `eventos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,9 +147,85 @@ CREATE TABLE `favoritos` (
 
 LOCK TABLES `favoritos` WRITE;
 /*!40000 ALTER TABLE `favoritos` DISABLE KEYS */;
-INSERT INTO `favoritos` VALUES (1,1),(1,2),(2,3),(2,12),(3,13),(4,14),(5,15),(6,16),(7,18),(8,31),(9,20),(10,11),(11,21),(12,23),(13,24),(14,28),(15,30),(18,1),(21,29);
+INSERT INTO `favoritos` VALUES (1,2),(1,3),(2,3),(2,12),(3,13),(4,14),(5,15),(6,16),(7,18),(8,31),(9,20),(10,11),(11,21),(12,23),(13,24),(14,28),(15,30),(18,1),(21,29);
 /*!40000 ALTER TABLE `favoritos` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `inscricoes`
+--
+
+DROP TABLE IF EXISTS `inscricoes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `inscricoes` (
+  `codinscricao` int(11) NOT NULL AUTO_INCREMENT,
+  `codusuario` int(11) NOT NULL,
+  `codevento` int(11) NOT NULL,
+  `datainscricao` datetime NOT NULL DEFAULT current_timestamp(),
+  `status_inscricao` enum('pendente','confirmada','cancelada') NOT NULL DEFAULT 'pendente',
+  PRIMARY KEY (`codinscricao`),
+  KEY `codusuario` (`codusuario`),
+  KEY `codevento` (`codevento`),
+  CONSTRAINT `inscricoes_ibfk_1` FOREIGN KEY (`codusuario`) REFERENCES `usuarios` (`usucodigo`),
+  CONSTRAINT `inscricoes_ibfk_2` FOREIGN KEY (`codevento`) REFERENCES `eventos` (`codevento`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inscricoes`
+--
+
+LOCK TABLES `inscricoes` WRITE;
+/*!40000 ALTER TABLE `inscricoes` DISABLE KEYS */;
+INSERT INTO `inscricoes` VALUES (1,1,1,'2025-06-26 22:29:05','confirmada'),(2,5,1,'2025-06-26 22:29:05','pendente'),(3,14,1,'2025-06-26 22:29:05','confirmada'),(4,2,2,'2025-06-26 22:29:05','confirmada'),(5,3,2,'2025-06-26 22:29:05','confirmada'),(6,11,2,'2025-06-26 22:29:05','cancelada'),(7,20,2,'2025-06-26 22:29:05','pendente'),(8,4,3,'2025-06-26 22:29:05','confirmada'),(9,9,3,'2025-06-26 22:29:05','confirmada'),(10,19,3,'2025-06-26 22:29:05','confirmada'),(11,2,11,'2025-06-26 22:29:05','pendente'),(12,5,11,'2025-06-26 22:29:05','confirmada'),(13,13,11,'2025-06-26 22:29:05','confirmada'),(14,18,11,'2025-06-26 22:29:05','pendente'),(15,6,12,'2025-06-26 22:29:05','confirmada'),(16,8,12,'2025-06-26 22:29:05','pendente'),(17,15,12,'2025-06-26 22:29:05','confirmada'),(18,7,13,'2025-06-26 22:29:05','confirmada'),(19,17,13,'2025-06-26 22:29:05','pendente'),(20,3,14,'2025-06-26 22:29:05','cancelada'),(21,10,14,'2025-06-26 22:29:05','confirmada'),(22,21,14,'2025-06-26 22:29:05','pendente'),(23,1,2,'2025-06-28 22:55:53','pendente');
+/*!40000 ALTER TABLE `inscricoes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `lista_eventos`
+--
+
+DROP TABLE IF EXISTS `lista_eventos`;
+/*!50001 DROP VIEW IF EXISTS `lista_eventos`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `lista_eventos` AS SELECT
+ 1 AS `codigo`,
+  1 AS `nome`,
+  1 AS `data`,
+  1 AS `categoria` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `lista_favoritos`
+--
+
+DROP TABLE IF EXISTS `lista_favoritos`;
+/*!50001 DROP VIEW IF EXISTS `lista_favoritos`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `lista_favoritos` AS SELECT
+ 1 AS `usuario`,
+  1 AS `codigo`,
+  1 AS `nome`,
+  1 AS `descricao`,
+  1 AS `imagem` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `lista_usuarios`
+--
+
+DROP TABLE IF EXISTS `lista_usuarios`;
+/*!50001 DROP VIEW IF EXISTS `lista_usuarios`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `lista_usuarios` AS SELECT
+ 1 AS `codigo`,
+  1 AS `nome`,
+  1 AS `email` */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `usuarios`
@@ -134,7 +240,7 @@ CREATE TABLE `usuarios` (
   `usuemail` varchar(50) DEFAULT NULL,
   `ususenha` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`usucodigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,9 +249,96 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Leonardo','leonardo@gmail.com','123'),(2,'Ana Silva','ana.silva@example.com','senha123'),(3,'Bruno Costa','bruno.costa@example.com','senha123'),(4,'Carla Dias','carla.dias@example.com','senha123'),(5,'Diego Fernandes','diego.fernandes@example.com','senha123'),(6,'Elisa Gomes','elisa.gomes@example.com','senha123'),(7,'F?bio Lima','fabio.lima@example.com','senha123'),(8,'Gisela Melo','gisela.melo@example.com','senha123'),(9,'Hugo Nogueira','hugo.nogueira@example.com','senha123'),(10,'Isabela Oliveira','isabela.oliveira@example.com','senha123'),(11,'Jo?o Pereira','joao.pereira@example.com','senha123'),(12,'K?tia Rocha','katia.rocha@example.com','senha123'),(13,'Lucas Souza','lucas.souza@example.com','senha123'),(14,'Maria Teixeira','maria.teixeira@example.com','senha123'),(15,'Nelson Vieira','nelson.vieira@example.com','senha123'),(16,'Ot?vio Almeida','otavio.almeida@example.com','senha123'),(17,'Paula Barros','paula.barros@example.com','senha123'),(18,'Ricardo Campos','ricardo.campos@example.com','senha123'),(19,'Sofia Esteves','sofia.esteves@example.com','senha123'),(20,'Tiago Freitas','tiago.freitas@example.com','senha123'),(21,'V?nia Lopes','vania.lopes@example.com','senha123');
+INSERT INTO `usuarios` VALUES (1,'Leonardo','leonardo@gmail.com','123'),(2,'Ana Silva','ana.silva@example.com','senha123'),(3,'Bruno Costa','bruno.costa@example.com','senha123'),(4,'Carla Dias','carla.dias@example.com','senha123'),(5,'Diego Fernandes','diego.fernandes@example.com','senha123'),(6,'Elisa Gomes','elisa.gomes@example.com','senha123'),(7,'F?bio Lima','fabio.lima@example.com','senha123'),(8,'Gisela Melo','gisela.melo@example.com','senha123'),(9,'Hugo Nogueira','hugo.nogueira@example.com','senha123'),(10,'Isabela Oliveira','isabela.oliveira@example.com','senha123'),(11,'Jo?o Pereira','joao.pereira@example.com','senha123'),(12,'K?tia Rocha','katia.rocha@example.com','senha123'),(13,'Lucas Souza','lucas.souza@example.com','senha123'),(14,'Maria Teixeira','maria.teixeira@example.com','senha123'),(15,'Nelson Vieira','nelson.vieira@example.com','senha123'),(16,'Ot?vio Almeida','otavio.almeida@example.com','senha123'),(17,'Paula Barros','paula.barros@example.com','senha123'),(18,'Ricardo Campos','ricardo.campos@example.com','senha123'),(19,'Sofia Esteves','sofia.esteves@example.com','senha123'),(20,'Tiago Freitas','tiago.freitas@example.com','senha123'),(21,'V?nia Lopes','vania.lopes@example.com','senha123'),(22,'Joaozinho','joazinho@gmail.com','123'),(23,'Leonardo','leonardo@gmail.com','123');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `usuarios_pendentes`
+--
+
+DROP TABLE IF EXISTS `usuarios_pendentes`;
+/*!50001 DROP VIEW IF EXISTS `usuarios_pendentes`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `usuarios_pendentes` AS SELECT
+ 1 AS `codigo`,
+  1 AS `nome`,
+  1 AS `email`,
+  1 AS `status` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `lista_eventos`
+--
+
+/*!50001 DROP VIEW IF EXISTS `lista_eventos`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `lista_eventos` AS select `eventos`.`codevento` AS `codigo`,`eventos`.`nomeevento` AS `nome`,`eventos`.`dataevento` AS `data`,`eventos`.`categoria` AS `categoria` from `eventos` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `lista_favoritos`
+--
+
+/*!50001 DROP VIEW IF EXISTS `lista_favoritos`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `lista_favoritos` AS select `f`.`codusuario` AS `usuario`,`e`.`codevento` AS `codigo`,`e`.`nomeevento` AS `nome`,`e`.`descevento` AS `descricao`,`e`.`imgevento` AS `imagem` from (`eventos` `e` join `favoritos` `f` on(`e`.`codevento` = `f`.`codevento`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `lista_usuarios`
+--
+
+/*!50001 DROP VIEW IF EXISTS `lista_usuarios`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `lista_usuarios` AS select `usuarios`.`usucodigo` AS `codigo`,`usuarios`.`nomeusuario` AS `nome`,`usuarios`.`usuemail` AS `email` from `usuarios` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `usuarios_pendentes`
+--
+
+/*!50001 DROP VIEW IF EXISTS `usuarios_pendentes`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `usuarios_pendentes` AS select `u`.`usucodigo` AS `codigo`,`u`.`nomeusuario` AS `nome`,`u`.`usuemail` AS `email`,`i`.`status_inscricao` AS `status` from (`usuarios` `u` left join `inscricoes` `i` on(`u`.`usucodigo` = `i`.`codusuario`)) where `i`.`status_inscricao` = 'pendente' */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -156,4 +349,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-22 21:58:45
+-- Dump completed on 2025-07-01 20:28:45
